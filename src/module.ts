@@ -9,7 +9,7 @@ export function greet(name) {
   return `Hello, ${name}!`;
 }
 
-export const appName = "myapp";
+export const appName = "MyApp";
 
 export const user = {
   name: "Alice",
