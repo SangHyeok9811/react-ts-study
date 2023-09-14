@@ -13,10 +13,14 @@ import metadata from "./module.js";
 
 // const module = require("./module") ?????
 
-const name = "Javascript";
+const name = "Javascript!!~~";
 
 console.log(
   greet(`${name}-${appName}-
   ${metadata.version}-${metadata.creator}
   -${user.name}-${user.age}`)
 );
+
+document.getElementById("root").innerHTML = greet(`${name}-${appName}-
+${metadata.version}-${metadata.creator}
+-${user.name}-${user.age}`);
