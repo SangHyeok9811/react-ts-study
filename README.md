@@ -10,7 +10,7 @@ npm install
 
 ```js
 "script": {
-  "build": "webpack -- mode production"
+  "build": "webpack --mode production"
 },
 ```
 
