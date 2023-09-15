@@ -19,7 +19,7 @@ module.exports = {
         test: /\.tsx?$/,
         loader: "esbuild-loader",
         options: {
-          target: "es2017", // 지원하는 ECMAScript 버전 설정
+          target: "es2020", // 지원하는 ECMAScript 버전 설정
         },
       },
       {

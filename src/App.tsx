@@ -1,3 +1,5 @@
+// 여기가 제일 첫 지점
+
 // 리액트는 컴포넌트(component)단위 개발
 // 컴포넌트: 페이지, 세부화면, 위젯, 아이콘, 버튼
 // 컴포넌트: 재사용이 가능한 UI 조각
@@ -14,8 +16,17 @@
 
 import react_icon from "./assets/reaect-icon.png";
 import intro from "./assets/intro.mp4";
+import WelcomeMessage from "./components/WelcomeMessage";
+import Button from "./components/Button";
 
 const App = () => {
+  const handlePrimaryButtonClicked = () => {
+    alert("Click me!");
+  };
+  const handleSecondaryButtonClicked = () => {
+    alert("Cancel");
+  };
+
   // React.createElement(component, props, ...children)
   // React.createElement("div", null, "Hello, React!!")
   return (
@@ -27,6 +38,21 @@ const App = () => {
           <source src={intro} type="video/mp4" />
         </video>
       </div>
+      {/* React Props에 값을 대입 */}
+      <WelcomeMessage name={"React Typescript"} />
+
+      {/* props-down, event-up */}
+      {/* 부모-자식 컴포넌트간 데이터 교환방법 */}
+      <Button
+        label="Click me!"
+        color="primary"
+        onClick={handlePrimaryButtonClicked}
+      />
+      <Button
+        label="Cancel"
+        color="secondary"
+        onClick={handleSecondaryButtonClicked}
+      />
     </div>
   );
 };
