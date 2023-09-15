@@ -1,30 +1,46 @@
 // common.js 방식의 모듈 import
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { ProvidePlugin } = require("webpack");
 
 // common.js 방식의 모듈선언 및 내보내기
 /** @type {import('webpack').Configuration} */
 module.exports = {
   // 시작지점의 코드(여기서부터 번들링이 시작, 뭐 tree-shaking 등등?)
-  entry: "./src/index.ts",
+  entry: "./src/index.tsx",
   // entry부터 시작해서 확장자가 ts/js 인 파일들을 번들링하겠다.
   // ts에서는 이부분을 써줘야함(resolve, module)
   resolve: {
-    extensions: [".ts", ".js"],
+    extensions: [".tsx", ".ts", ".js"],
   },
   // 모듈 해석기
   module: {
     rules: [
       {
-        test: /\.ts$/, // .ts 파일에 대해서
-        use: "ts-loader", // ts-loader를 이용하여 해석한다.
-        exclude: /node_modules/, // 예외 디렉터리
+        test: /\.tsx?$/,
+        loader: "esbuild-loader",
+        options: {
+          target: "es2017", // 지원하는 ECMAScript 버전 설정
+        },
+      },
+      {
+        test: /\.(gif|jpg|png|webp|svg|mp4|mp3|apng)$/,
+        type: "asset/resource",
       },
     ],
+    // rules: [
+    //   {
+    //     test: /\.tsx$/, // .ts 파일에 대해서
+    //     use: "ts-loader", // ts-loader를 이용하여 해석한다.
+    //     exclude: /node_modules/, // 예외 디렉터리
+    //   },
+    // ],
+    // 번들링이 완료된 코드를 출력하는 위치
   },
-  // 번들링이 완료된 코드를 출력하는 위치
   output: {
     // 번들 파일에 해시 추가
     filename: "js/[name]-[chunkhash].js",
+    // 이미지/동영상 같은 정적파일들의 위치와 파일형식
+    assetModuleFilename: "asset/[hash][ext][query]",
     // 결과물들의 위치
     path: __dirname + "/dist",
     // 기존 빌드 결과를 삭제
@@ -35,6 +51,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
+    new ProvidePlugin({
+      React: "react",
+    }),
   ],
   // 웹팩 개발서버에 대한 설정을 넣는 곳
   // node.js express 프레임워크를 이용하여 웹서버를 띄움
@@ -44,5 +63,6 @@ module.exports = {
   // 램디스크처럼 ./dist/index.html, ./dist/bundle.js
   devServer: {
     static: "./dist",
+    open: true,
   },
 };

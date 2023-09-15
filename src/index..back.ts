@@ -1,3 +1,5 @@
+// ecmascript(es, js) module
+
 // const person = { username: "Alice", age: 30 };
 // const {usernamem, age} = {username: "Alice", age: 30};
 // username, age
