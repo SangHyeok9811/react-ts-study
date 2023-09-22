@@ -7,10 +7,15 @@ const { ProvidePlugin } = require("webpack");
 module.exports = {
   // 시작지점의 코드(여기서부터 번들링이 시작, 뭐 tree-shaking 등등?)
   entry: "./src/index.tsx",
-  // entry부터 시작해서 확장자가 ts/js 인 파일들을 번들링하겠다.
+
   // ts에서는 이부분을 써줘야함(resolve, module)
   resolve: {
+    // entry부터 시작해서 확장자가 ts/js 인 파일들을 번들링하겠다.
     extensions: [".tsx", ".ts", ".js"],
+    // 경로에 대한 alias(별칭) 설정
+    alias: {
+      "@": __dirname + "/src",
+    },
   },
   // 모듈 해석기
   module: {
@@ -62,6 +67,7 @@ module.exports = {
   // 램(ram)에 파일디렉터리 형태로 구조를 만들어서 저장 (가상? 실제로는 안만들어지나?)
   // 램디스크처럼 ./dist/index.html, ./dist/bundle.js
   devServer: {
+    historyApiFallback: true,
     static: "./dist",
     open: true,
   },
