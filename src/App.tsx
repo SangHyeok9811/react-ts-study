@@ -35,13 +35,16 @@ const Todo = lazy(() => {
   // 0.5초의 지연을 시뮬레이션하기 위해
   return new Promise<{
     default: React.ComponentType;
-  }>(
-    (resolve) =>
-      setTimeout(() => {
-        resolve(import("@/modules/todo/Todo"));
-      }, 1000) // 지연시 loading... 이 보임
+  }>((resolve) =>
+    setTimeout(() => {
+      resolve(import("@/modules/todo/Todo"));
+    }, 500)
   );
 });
+
+const ProfileEdit = lazy(
+  () => import("@/modules/profile/ProfilesEdit")
+);
 
 const App = () => {
   // 라우팅 처리하는 곳의 가장 최상위에 BrowserRouter 감싸줘야함
@@ -57,6 +60,11 @@ const App = () => {
           {/* index: 해당경로의 기본 화면 */}
           <Route element={<Home />} index />
           {/* 기능 모듈 */}
+          <Route
+            path="/profile/edit"
+            element={<ProfileEdit />}
+          />
+
           <Route
             path="todo"
             element={<Todo />}
@@ -90,35 +98,3 @@ const App = () => {
 };
 
 export default App;
-
-// 스타일링
-// import { useState } from "react";
-// import Todo from "./modules/todo/Todo";
-// import ResetStyle from "./styles/reset";
-
-// const App = () => {
-//   const [theme, setTheme] = useState<
-//     "light" | "dark"
-//   >("light");
-
-//   const handleChangeTheme = () => {
-//     if (theme === "light") {
-//       setTheme("dark");
-//     } else {
-//       setTheme("light");
-//     }
-//   };
-
-//   return (
-//     <div id="app-theme" className={theme}>
-//       {/* 글로벌 스타일을 가장 첫부분에 넣어야함 */}
-//       <ResetStyle />
-//       <button onClick={handleChangeTheme}>
-//         {theme}
-//       </button>
-//       <Todo />
-//     </div>
-//   );
-// };
-
-// export default App;
